@@ -27,15 +27,16 @@ pipeline {
         }
 
         stage('Deploy to Tomcat') {
-            steps {
-                script {
-                    def warFile = 'target/myapp.war'
-                    bat """
-                    curl --user ${env.TOMCAT_USER}:${env.TOMCAT_PASS} --upload-file ${warFile} ${env.TOMCAT_URL}/manager/text/deploy?path=/myapp&update=true
-                    """
-                }
-            }
+    steps {
+        script {
+            def warFile = 'target/myapp.war'
+            bat """
+            curl --user %TOMCAT_USER%:%TOMCAT_PASS% --upload-file ${warFile} "%TOMCAT_URL%/manager/text/deploy?path=/myapp&update=true"
+            """
+            """
         }
+    }
+}
     }
 
     post {
