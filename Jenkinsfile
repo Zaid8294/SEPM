@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build with Maven') {
             steps {
-                bat 'mvn clean package'  // Make sure Maven is installed and in PATH
+                bat 'mvn clean package'  // Ensure Maven is installed and in PATH
             }
         }
 
@@ -27,16 +27,15 @@ pipeline {
         }
 
         stage('Deploy to Tomcat') {
-    steps {
-        script {
-            def warFile = 'target/myapp.war'
-            bat """
-            curl --user %TOMCAT_USER%:%TOMCAT_PASS% --upload-file ${warFile} "%TOMCAT_URL%/manager/text/deploy?path=/myapp&update=true"
-            """
-            """
+            steps {
+                script {
+                    def warFile = 'target/myapp.war'
+                    bat """
+                    curl --user %TOMCAT_USER%:%TOMCAT_PASS% --upload-file ${warFile} "%TOMCAT_URL%/manager/text/deploy?path=/myapp&update=true"
+                    """
+                }
+            }
         }
-    }
-}
     }
 
     post {
