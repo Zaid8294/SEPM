@@ -10,13 +10,13 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/your-repo.git'
+                git branch: 'main', url: 'https://github.com/Zaid8294/SEPM.git'
             }
         }
 
         stage('Build with Maven') {
             steps {
-                bat 'mvn clean package'  // Windows uses 'bat' instead of 'sh'
+                bat 'mvn clean package'  // Make sure Maven is installed and in PATH
             }
         }
 
@@ -31,7 +31,7 @@ pipeline {
                 script {
                     def warFile = 'target/myapp.war'
                     bat """
-                    curl --user %TOMCAT_USER%:%TOMCAT_PASS% --upload-file ${warFile} %TOMCAT_URL%/manager/text/deploy?path=/myapp&update=true
+                    curl --user ${env.TOMCAT_USER}:${env.TOMCAT_PASS} --upload-file ${warFile} ${env.TOMCAT_URL}/manager/text/deploy?path=/myapp&update=true
                     """
                 }
             }
