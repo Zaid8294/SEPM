@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         TOMCAT_USER = 'admin'
-        TOMCAT_PASS = 'password'
+        TOMCAT_PASS = '82025840'
         TOMCAT_URL  = 'http://localhost:8080'
     }
 
